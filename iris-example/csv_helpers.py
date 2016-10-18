@@ -26,7 +26,7 @@ def readCsv(filename_queue):
     return features, label
 
 
-def input_pipeline(batch_size , num_epochs=None, dataset ):
+def input_pipeline(batch_size , dataset,  num_epochs=None ):
     # argumento files debe ser una lista con los archivos
     filename_queue = tf.train.string_input_producer( dataset , num_epochs=num_epochs )
 
