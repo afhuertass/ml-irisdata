@@ -13,7 +13,7 @@ def fileLen(fileName):
     return i+1
 
 def readCsv(filename_queue):
-    reader = tf.TextLineReader( )
+    reader = tf.TextLineReader()
 
     key , value = reader.read(filename_queue)
 
@@ -22,22 +22,21 @@ def readCsv(filename_queue):
 
     features = tf.pack([ col1 , col2, col3 , col4])
     label =  tf.pack([targets])
-
+    
     return features, label
 
 
 def input_pipeline(batch_size , dataset,  num_epochs=None ):
     # argumento files debe ser una lista con los archivos
-    filename_queue = tf.train.string_input_producer( dataset , num_epochs=num_epochs )
-
+    filename_queue = tf.train.string_input_producer( dataset , num_epochs=num_epochs ,shuffle = True )
+    
+    example , label = readCsv(filename_queue)
     min_after_dequeue = 1000 # ver significado
     capacity = min_after_dequeue + 3*batch_size # checkiar significado
-    example , label = readCsv(filename_queue)
-
-    examble_batch , label_batch = tf.train.shuffle_batch( [example,label],
-                                                          batch_size=batch_size , capacity = capacity , min_after_dequeue = min_after_dequeue
-    )
-
+    
+   
+    example_batch , label_batch = tf.train.shuffle_batch( [example,label]  ,batch_size=batch_size , capacity = capacity , min_after_dequeue = min_after_dequeue )
+    
     return example_batch , label_batch
 
 
