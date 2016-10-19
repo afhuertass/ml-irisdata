@@ -17,7 +17,7 @@ def readCsv(filename_queue):
 
     key , value = reader.read(filename_queue)
 
-    record_defaults = [[0.0 ] ,[ 0.0  ], [ 0.0] ,[ 0.0] , [0.0] ]
+    record_defaults = [[0.0 ] ,[ 0.0  ], [ 0.0] ,[ 0.0] , [0] ]
     col1, col2, col3 , col4 , targets = tf.decode_csv( value , record_defaults=record_defaults)
 
     features = tf.pack([ col1 , col2, col3 , col4])
